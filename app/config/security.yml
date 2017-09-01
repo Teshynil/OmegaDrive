@@ -25,5 +25,8 @@ security:
 
             # https://symfony.com/doc/current/security/form_login_setup.html
             form_login:
-                login_path: login
-                check_path: login
+                login_path: /login
+                check_path: /login
+            logout:
+                path:   /logout
+                target: /
