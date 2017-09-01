@@ -1,18 +1,12 @@
 AppBundle\Entity\User:
     type: entity
-    table: null
+    table: Users
     repositoryClass: AppBundle\Repository\UserRepository
     id:
-        id:
-            type: integer
-            id: true
-            generator:
-                strategy: AUTO
-    fields:
         username:
             type: string
-            length: '64'
-            unique: true
+            id: true
+    fields:
         password:
             type: string
             length: '80'
