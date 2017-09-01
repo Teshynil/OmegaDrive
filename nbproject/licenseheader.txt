@@ -1,0 +1,7 @@
+<#if licenseFirst??>
+${licenseFirst}
+</#if>
+${licensePrefix}@Author: Carlos Adrián Domínguez Sárate
+<#if licenseLast??>
+${licenseLast}
+</#if>
