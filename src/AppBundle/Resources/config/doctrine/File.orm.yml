@@ -1,0 +1,46 @@
+AppBundle\Entity\File:
+    type: entity
+    table: Files
+    repositoryClass: AppBundle\Repository\FileRepository
+    manyToOne:
+        folder:
+            targetEntity: Folder
+            joinColumn:
+                name: Folder
+                referencedColumnName: FolderID
+        owner:
+            targetEntity: User
+            joinColumn:
+                name: Owner
+                referencedColumnName: Username
+        entity:
+            targetEntity: Entity
+            joinColumn:
+                name: Entity
+                referencedColumnName: Entity
+    id:
+        fileID:
+            type: guid
+            id: true
+            column: FileID
+            generator:
+                strategy: UUID
+    fields:
+        name:
+            type: string
+            length: 255
+            column: Name
+        extension:
+            type: string
+            length: '32'
+            column: Extension
+        creationDate:
+            type: datetime
+            column: CreationDate
+        lastModifiedDate:
+            type: datetime
+            column: LastModifiedDate
+        lastAccessDate:
+            type: datetime
+            column: LastAccessDate
+    lifecycleCallbacks: {  }

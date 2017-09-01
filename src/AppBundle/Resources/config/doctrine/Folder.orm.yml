@@ -1,0 +1,26 @@
+AppBundle\Entity\Folder:
+    type: entity
+    table: Folders
+    repositoryClass: AppBundle\Repository\FolderRepository
+    id:
+        foldeID:
+            type: guid
+            id: true
+            column: FolderID
+            generator:
+                strategy: UUID
+    fields:
+        name:
+            type: string
+            length: 255
+            column: Name
+        creationDate:
+            type: datetime
+            column: CreationDate
+        lastModifiedDate:
+            type: datetime
+            column: LastModifiedDate
+        lastAccessDate:
+            type: datetime
+            column: LastAccessDate
+    lifecycleCallbacks: {  }

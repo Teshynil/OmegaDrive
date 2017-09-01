@@ -4,6 +4,10 @@ security:
 
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
+        omegaAuth:
+            entity:
+                class: AppBundle:User
+                property: username
         in_memory:
             memory: ~
     encoders:
@@ -24,6 +28,7 @@ security:
             #http_basic: ~
 
             # https://symfony.com/doc/current/security/form_login_setup.html
+            provider: omegaAuth
             form_login:
                 login_path: /login
                 check_path: /login

@@ -1,0 +1,14 @@
+AppBundle\Entity\Trash:
+    type: entity
+    table: TrashBin
+    repositoryClass: AppBundle\Repository\TrashRepository
+    id:
+        entityID:
+            type: guid
+            id: true
+        
+    fields:
+        liveUntil:
+            type: datetime
+            column: LiveUntil
+    lifecycleCallbacks: {  }

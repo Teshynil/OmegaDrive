@@ -1,0 +1,11 @@
+AppBundle\Entity\Entity:
+    type: entity
+    table: Entities
+    repositoryClass: AppBundle\Repository\EntityRepository
+    id:
+        Entity:
+            type: string
+            length: '20'
+            column: Entity
+            id: true
+    lifecycleCallbacks: {  }

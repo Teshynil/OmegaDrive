@@ -7,10 +7,6 @@ namespace AppBundle\Entity;
  */
 class User
 {
-    /**
-     * @var int
-     */
-    private $id;
 
     /**
      * @var string
@@ -21,17 +17,6 @@ class User
      * @var string
      */
     private $password;
-
-
-    /**
-     * Get id
-     *
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 
     /**
      * Set username

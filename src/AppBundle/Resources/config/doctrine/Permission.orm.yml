@@ -1,0 +1,18 @@
+AppBundle\Entity\Permission:
+    type: entity
+    table: null
+    repositoryClass: AppBundle\Repository\PermissionRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        canRead:
+            type: boolean
+            column: CanRead
+        canWrite:
+            type: boolean
+            column: CanWrite
+    lifecycleCallbacks: {  }
