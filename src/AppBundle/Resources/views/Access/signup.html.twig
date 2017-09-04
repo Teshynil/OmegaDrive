@@ -1,0 +1,88 @@
+{% form_theme form 'form/tooltipErrors.twig' %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="CoreUI Bootstrap 4 Admin Template">
+    <meta name="author" content="Lukasz Holeczek">
+    <meta name="keyword" content="CoreUI Bootstrap 4 Admin Template">
+    <!-- <link rel="shortcut icon" href="assets/ico/favicon.png"> -->
+
+    <title>CoreUI Bootstrap 4 Admin Template</title>
+
+    <!-- Icons -->
+    <link href="{{asset('assets/css/font-awesome.min.css')}}" rel="stylesheet">
+    <link href="{{asset('assets/css/simple-line-icons.css')}}" rel="stylesheet">
+
+    <!-- Main styles for this application -->
+    <link href="{{asset('assets/css/style.css')}}" rel="stylesheet">
+    <link href="{{asset('assets/css/omega.css')}}" rel="stylesheet">
+    <link href="{{asset('assets/vendor/select2/dist/css/select2.min.css')}}" rel="stylesheet">
+
+</head>
+
+<body class="app flex-row align-items-center">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card mx-4">
+                    <div class="card-body p-4">
+                        {{ form_start(form,{'id':'register_form'}) }}
+                            <h1>Registro</h1>
+                            <p class="text-muted">Crea tu cuenta</p>
+                            <div class="input-group mb-3">
+                                <span class="input-group-addon"><i class="icon-user"></i>
+                                </span>
+                                {{form_widget(form.username, { 'attr': {'errors':form_errors(form.username),'class': 'form-control '~(submitted==true?(form_errors(form.username)?'is-invalid':'is-valid'):''),'placeholder':'Username'} })}}
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-addon">@</span>
+                                {{form_widget(form.email, { 'attr': {'errors':form_errors(form.email),'class': 'form-control '~(submitted==true?(form_errors(form.email)?'is-invalid':'is-valid'):''),'placeholder':'Correo'} })}}
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-addon"><i class="icon-lock"></i>
+                                </span>
+                                {{form_widget(form.password.password, {'attr': {'errors':form_errors(form.password.password),'class': 'form-control '~(submitted==true?(form_errors(form.password.password)?'is-invalid':'is-valid'):''),'placeholder':'Contraseña'} })}}
+                            </div>
+                            <div class="input-group mb-4">
+                                <span class="input-group-addon"><i class="icon-lock"></i>
+                                </span>
+                                {{form_widget(form.password.confirm_password, { 'attr': {'class': 'form-control '~(submitted==true?(form_errors(form.password.password)?'is-invalid':'is-valid'):''),'placeholder':'Contraseña'} })}}
+                            </div>
+                            <div class="mb-4">
+                                {{form_widget(form.timezone, {'attr': {'errors':form_errors(form.timezone),'class': 'form-control '~(submitted==true?(form_errors(form.timezone)?'is-invalid':'is-valid'):''),'data-placeholder':'Zona Horaria','select2':'true'} })}}
+                            </div>
+                            {{form_widget(form.submit, { 'attr': {'class': 'btn btn-block btn-success'} })}}
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+                    
+    <!-- Bootstrap and necessary plugins -->
+    <script src="{{asset('assets/vendor/jquery/dist/jquery.min.js')}}"></script>
+    <script src="{{asset('assets/vendor/tether/dist/js/tether.min.js')}}"></script>
+    <script src="{{asset('assets/vendor/popper.js/index.js')}}"></script>
+    <script src="{{asset('assets/vendor/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+    <script src="{{asset('assets/vendor/select2/dist/js/select2.min.js')}}"></script>
+    <script src="{{asset('assets/vendor/select2/dist/js/i18n/es.js')}}"></script>
+    <script>
+        $('.is-invalid[data-toggle="tooltip"]').tooltip({
+            template:'<div class="tooltip" role="tooltip"><div class="arrow"></div><div class="tooltip-inner text-danger"></div></div>'
+        });
+        $('.is-invalid').keypress(function(){
+            $(this).removeClass('is-invalid').tooltip('hide');
+            $(this).tooltip('disable');
+        });
+        $('select[select2]').select2({
+            language: "es"
+        });
+    </script>
+</body>
+
+</html>

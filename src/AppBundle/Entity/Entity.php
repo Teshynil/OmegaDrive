@@ -8,19 +8,39 @@ namespace AppBundle\Entity;
 class Entity
 {
     /**
-     * @var int
+     * @var string
      */
-    private $id;
-
+    private $Entity;
+    
+    /**
+     * Constructor
+     * @param string $entity
+     * 
+     */
+    public function __construct($entity) {
+        $this->setEntity($entity);
+    }
+    /**
+     * Set entity
+     *
+     * @param string $entity
+     *
+     * @return Entity
+     */
+    public function setEntity($entity)
+    {
+        $this->Entity = $entity;
+    
+        return $this;
+    }
 
     /**
-     * Get id
+     * Get entity
      *
-     * @return integer
+     * @return string
      */
-    public function getId()
+    public function getEntity()
     {
-        return $this->id;
+        return $this->Entity;
     }
 }
-

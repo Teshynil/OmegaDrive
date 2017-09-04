@@ -2,11 +2,19 @@ AppBundle\Entity\Trash:
     type: entity
     table: TrashBin
     repositoryClass: AppBundle\Repository\TrashRepository
+    manyToOne:
+        entity:
+            targetEntity: Entity
+            joinColumn:
+                name: Entity
+                referencedColumnName: Entity
     id:
         entityID:
             type: guid
             id: true
-        
+            column: EntityID
+        entity:
+            associationKey: true
     fields:
         liveUntil:
             type: datetime

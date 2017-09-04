@@ -1,0 +1,128 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block body %}
+    <header class="app-header navbar">
+        <button class="navbar-toggler mobile-sidebar-toggler d-lg-none mr-auto" type="button">&#9776;</button>
+        <a class="navbar-brand" href="#"></a>
+        <button class="navbar-toggler sidebar-minimizer d-md-down-none" type="button">&#9776;</button>
+
+        <ul class="nav navbar-nav d-md-down-none">
+        </ul>
+        <ul class="nav navbar-nav ml-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                    <img src="{{asset('assets/img/avatar.png')}}" class="img-avatar" alt="admin@bootstrapmaster.com">
+                    <span class="d-md-down-none">{{app.user.username}}</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="Perfil"><i class="fa fa-user"></i> Perfil</a>
+                    <!--<a class="dropdown-item" href="#"><i class="fa fa-wrench"></i> Configuración</a>-->
+                    <div class="divider"></div>
+                    <a class="dropdown-item" href="{{path('_logout')}}" hardlink><i class="fa fa-lock"></i> Desconectarse</a>
+                </div>
+            </li>
+        </ul>
+
+    </header>
+
+    <div class="app-body">
+        <div class="sidebar">
+            <nav class="sidebar-nav">
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="Main"><i class="icon-speedometer"></i> Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Drive"><i class="icon-folder"></i> Archivos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Compartidos"><i class="icon-folder"></i> Archivos compartidos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Papelera"><i class="icon-trash"></i> Papelera</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li class="nav-info">
+                        <i class="icon-grid"></i>
+                        <div class="container">
+                            <div class="text-uppercase mb-1 mt-2">
+                                <small><b>Almacenamiento</b>
+                                </small>
+                            </div>
+                            <div class="progress progress-xs">
+                                <div class="progress-bar bg-warning" role="progressbar" style="width: 70%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <small class="text-muted">0MB/5120MB</small>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Main content -->
+        <main class="main">
+
+            <div class="container-fluid mt-4">
+                <div id="ui-view"></div>
+                <div id="ui-loader" style="width: 60px;height: 60px;position: absolute;top: 0;left: 0;bottom: 0px;right: 0;margin: auto;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;">
+                    <div class="sk-double-bounce">
+                        <div class="sk-child sk-double-bounce1"></div>
+                        <div class="sk-child sk-double-bounce2"></div>
+                    </div>
+                </div>
+            </div>
+            <div id="upload-file" style="position: fixed;z-index: 100;right: 0px;bottom: 50px;">
+                <button class="btn btn-primary upload-file">
+                    <i class="icon-plus"></i>
+                </button>
+                <div id="upload-preview-zone" class="d-none"></div>
+            </div>
+            <!-- /.conainer-fluid -->
+        </main>
+
+
+
+
+    </div>
+
+    <footer class="app-footer">
+        <span class="float-right">Powered by <a href="http://coreui.io">CoreUI</a>
+        </span>
+    </footer>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        $("main").dropzone({
+            url: "{{path('_submit')}}",
+            paramName: "uploaded-file",
+            params: $.uploadContext,
+            previewsContainer: "#upload-preview-zone",
+            clickable: "button.upload-file",
+            createImageThumbnails: false,
+            init: function () {
+                this.on("sending", function (file, xhr, data) {
+                    data.append('uploadContext', $.uploadContext);
+                    $('#upload-preview-zone').html('');
+                    $.mainContent.animate({opacity: 0}, 500, 'swing', function () {
+                        $.mainContent.css({display: 'none'});
+                    });
+                    $.loader.css({display: 'block'});
+                });
+                this.on("complete", function (file) {
+                    $('#upload-preview-zone').html('');
+                    $('html, body').animate({scrollTop: 0}, 0);
+                    $.mainContent.animate({opacity: 1}, 500, 'swing', function () {
+                        $.mainContent.css({display: 'block'});
+                        $.loader.css({display: 'none'});
+                    });
+                });
+                this.on("success", function (file,data) {
+                    loadPage(actualPage);
+                });
+            }
+        });
+
+    </script>
+{% endblock %}

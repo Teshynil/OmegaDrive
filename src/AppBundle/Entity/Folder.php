@@ -8,9 +8,9 @@ namespace AppBundle\Entity;
 class Folder
 {
     /**
-     * @var int
+     * @var guid
      */
-    private $id;
+    private $folderID;
 
     /**
      * @var string
@@ -32,15 +32,42 @@ class Folder
      */
     private $lastAccessDate;
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $childs;
 
     /**
-     * Get id
-     *
-     * @return integer
+     * @var \AppBundle\Entity\User
      */
-    public function getId()
+    private $owner;
+
+    /**
+     * @var \AppBundle\Entity\Entity
+     */
+    private $entity;
+
+    /**
+     * @var \AppBundle\Entity\Folder
+     */
+    private $parent;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
     {
-        return $this->id;
+        $this->childs = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Get folderID
+     *
+     * @return guid
+     */
+    public function getFolderID()
+    {
+        return $this->folderID;
     }
 
     /**
@@ -138,5 +165,110 @@ class Folder
     {
         return $this->lastAccessDate;
     }
-}
 
+    /**
+     * Add child
+     *
+     * @param \AppBundle\Entity\Folder $child
+     *
+     * @return Folder
+     */
+    public function addChild(\AppBundle\Entity\Folder $child)
+    {
+        $this->childs[] = $child;
+    
+        return $this;
+    }
+
+    /**
+     * Remove child
+     *
+     * @param \AppBundle\Entity\Folder $child
+     */
+    public function removeChild(\AppBundle\Entity\Folder $child)
+    {
+        $this->childs->removeElement($child);
+    }
+
+    /**
+     * Get childs
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getChilds()
+    {
+        return $this->childs;
+    }
+
+    /**
+     * Set owner
+     *
+     * @param \AppBundle\Entity\User $owner
+     *
+     * @return Folder
+     */
+    public function setOwner(\AppBundle\Entity\User $owner = null)
+    {
+        $this->owner = $owner;
+    
+        return $this;
+    }
+
+    /**
+     * Get owner
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getOwner()
+    {
+        return $this->owner;
+    }
+
+    /**
+     * Set entity
+     *
+     * @param \AppBundle\Entity\Entity $entity
+     *
+     * @return Folder
+     */
+    public function setEntity(\AppBundle\Entity\Entity $entity = null)
+    {
+        $this->entity = $entity;
+    
+        return $this;
+    }
+
+    /**
+     * Get entity
+     *
+     * @return \AppBundle\Entity\Entity
+     */
+    public function getEntity()
+    {
+        return $this->entity;
+    }
+
+    /**
+     * Set parent
+     *
+     * @param \AppBundle\Entity\Folder $parent
+     *
+     * @return Folder
+     */
+    public function setParent(\AppBundle\Entity\Folder $parent = null)
+    {
+        $this->parent = $parent;
+    
+        return $this;
+    }
+
+    /**
+     * Get parent
+     *
+     * @return \AppBundle\Entity\Folder
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+}

@@ -1,0 +1,48 @@
+{% include "::api.html.twig" %}
+{% form_theme form 'form/tooltipErrors.twig' %}
+<script>
+    var requireJS = [];
+
+</script>
+
+
+
+<div class="animated fadeIn">
+
+    <div class="card">
+        <div class="container p-5">
+            {{ form_start(form,{'id':'register_form','action':'Editar/Perfil'}) }}
+            <div class="input-group mb-3">
+                <span class="input-group-addon"><i class="icon-user"></i>
+                </span>
+                <input class="form-control" readonly value="{{app.user.username}}">
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-addon">@</span>
+                <input class="form-control" readonly value="{{app.user.email}}">
+            </div>
+            <div class="mb-4">
+                {{form_widget(form.timezone, {'attr': {'errors':form_errors(form.timezone),'class': 'form-control '~(submitted==true?(form_errors(form.timezone)?'is-invalid':'is-valid'):''),'data-placeholder':'Zona Horaria','select2':'true'} })}}
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-addon"><i class="icon-lock"></i>
+                </span>
+                {{form_widget(form.lastpassword, {'attr': {'errors':form_errors(form.lastpassword),'class': 'form-control '~(submitted==true?(form_errors(form.lastpassword)?'is-invalid':'is-valid'):''),'placeholder':'Contraseña actual'} })}}
+            </div>
+            <span>Si no deseas cambiar tu contraseña deja estos espacios en blanco</span> 
+            <div class="input-group mb-3">
+                <span class="input-group-addon"><i class="icon-lock"></i>
+                </span>
+                {{form_widget(form.newpassword.newpassword, {'attr': {'errors':form_errors(form.newpassword.newpassword),'class': 'form-control '~(submitted==true?(form_errors(form.newpassword.newpassword)?'is-invalid':'is-valid'):''),'placeholder':'Nueva contraseña'} })}}
+            </div>
+            <div class="input-group mb-4">
+                <span class="input-group-addon"><i class="icon-lock"></i>
+                </span>
+                {{form_widget(form.newpassword.confirm_newpassword, { 'attr': {'class': 'form-control '~(submitted==true?(form_errors(form.newpassword.newpassword)?'is-invalid':'is-valid'):''),'placeholder':'Repite la nueva contraseña'} })}}
+            </div>
+            {{form_widget(form.submit, { 'attr': {'class': 'btn btn-block btn-success'} })}}
+            {{ form_end(form) }}
+        </div>
+    </div>
+    <!--/.card-->
+</div>

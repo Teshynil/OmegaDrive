@@ -1,0 +1,26 @@
+{% block attributes -%}
+    {%- for attrname, attrvalue in attr -%}
+        {{- " " -}}
+        {%- if attrname in ['placeholder', 'title'] -%}
+            {{- attrname }}="{{ translation_domain is same as(false) ? attrvalue : attrvalue|trans({}, translation_domain) }}"
+        {%- elseif attrname == "errors" -%}
+            {{ attrvalue|raw }}
+        {%- elseif attrvalue is same as(true) -%}
+            {{- attrname }}="{{ attrname }}"
+        {%- elseif attrvalue is not same as(false) -%}
+            {{- attrname }}="{{ attrvalue }}"
+        {%- endif -%}
+    {%- endfor -%}
+{%- endblock attributes -%}
+{%- block form_errors -%}
+    {%- if errors|length > 0 -%}
+    data-toggle=tooltip
+    data-html=true
+    title='
+        {%- for error in errors -%}
+            {{ error.message|raw }}
+        {%- endfor -%}
+        '
+    {%- endif -%}
+{%- endblock form_errors -%}
+      

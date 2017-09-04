@@ -1,0 +1,100 @@
+/*
+@Author: Carlos Adrián Domínguez Sárate
+*/
+/* 
+    Created on : 2/09/2017, 09:15:14 PM
+    Author     : Carlos
+*/
+.sidebar-minimized .sidebar .nav .nav-item .nav-link i, .sidebar-minimized .sidebar .nav .nav-item .navbar .dropdown-toggle i, .navbar .sidebar-minimized .sidebar .nav .nav-item .dropdown-toggle i, .sidebar-minimized .sidebar .nav .nav-info i {
+    display: block;
+    float: left;
+    width: 50px;
+    margin: 0 !important;
+    font-size: 18px;
+    display:block;
+}
+
+li.nav-info {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    min-height: 45px;
+}
+
+.sidebar .nav .nav-info i {
+    display:none;
+}
+
+.sidebar .nav .nav-info i {
+    width: 20px;
+    margin: 0 0.5rem 0 0;
+    font-size: 14px;
+    color: #536c79;
+    padding: 0.75rem 1rem;
+    text-align: center;
+}
+
+.sidebar-minimized .sidebar .nav .nav-info .container {
+    display: none;
+}
+
+li.nav-info:hover {
+    overflow: visible;
+    background: #20a8d8;
+    transition: 0s;
+}
+
+.sidebar .nav .nav-info:hover i {
+    color: #fff;
+}
+i.fa.fa-adapt:not(.fa-lg){
+    width:14px!important;
+}
+.d-inline-table {
+    display: inline-table!important;
+}
+@media(max-width:425px){
+    .main .container-fluid{
+        padding:0px!important;
+    }
+}
+@media(min-width:375px){
+    .d-xs-none {
+        display: none!important;
+    }
+    .d-xs-inline-table {
+        display: inline-table!important;
+    }
+}
+span.select2-selection.select2-selection--single {
+    height: calc(2.09375rem + 2px);
+    display: block;
+    width: 100%;
+    font-size: 0.875rem;
+    line-height: 1.25;
+    color: #3e515b;
+    background-color: #fff;
+    background-image: none;
+    background-clip: padding-box;
+    border: 1px solid #c2cfd6;
+    border-radius: 0;
+    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    padding-top: 0.25rem;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    margin-top: 0.25rem;
+}
+
+.upload-file .icon-plus {
+    margin: 0px;
+    font-size: 3em;
+}
+
+.upload-file {
+    border-radius: 100%;
+    padding: 10px!important;
+}

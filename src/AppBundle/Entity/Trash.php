@@ -8,24 +8,43 @@ namespace AppBundle\Entity;
 class Trash
 {
     /**
-     * @var int
+     * @var guid
      */
-    private $id;
+    private $entityID;
 
     /**
      * @var \DateTime
      */
     private $liveUntil;
 
+    /**
+     * @var \AppBundle\Entity\Entity
+     */
+    private $entity;
+
 
     /**
-     * Get id
+     * Set entityID
      *
-     * @return integer
+     * @param guid $entityID
+     *
+     * @return Trash
      */
-    public function getId()
+    public function setEntityID($entityID)
     {
-        return $this->id;
+        $this->entityID = $entityID;
+    
+        return $this;
+    }
+
+    /**
+     * Get entityID
+     *
+     * @return guid
+     */
+    public function getEntityID()
+    {
+        return $this->entityID;
     }
 
     /**
@@ -51,5 +70,28 @@ class Trash
     {
         return $this->liveUntil;
     }
-}
 
+    /**
+     * Set entity
+     *
+     * @param \AppBundle\Entity\Entity $entity
+     *
+     * @return Trash
+     */
+    public function setEntity(\AppBundle\Entity\Entity $entity)
+    {
+        $this->entity = $entity;
+    
+        return $this;
+    }
+
+    /**
+     * Get entity
+     *
+     * @return \AppBundle\Entity\Entity
+     */
+    public function getEntity()
+    {
+        return $this->entity;
+    }
+}

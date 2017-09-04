@@ -2,8 +2,29 @@ AppBundle\Entity\Folder:
     type: entity
     table: Folders
     repositoryClass: AppBundle\Repository\FolderRepository
+    manyToOne:
+        owner:
+            targetEntity: User
+            joinColumn:
+                name: Owner
+                referencedColumnName: Username
+        entity:
+            targetEntity: Entity
+            joinColumn:
+                name: Entity
+                referencedColumnName: Entity
+        parent:
+            targetEntity: Folder
+            inversedBy: childs
+            joinColumn:
+                name: Parent
+                referencedColumnName: FolderID
+    oneToMany:
+        childs:
+            targetEntity: Folder
+            mappedBy: parent
     id:
-        foldeID:
+        folderID:
             type: guid
             id: true
             column: FolderID

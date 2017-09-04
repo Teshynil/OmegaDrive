@@ -33,3 +33,11 @@ services:
     # AppBundle\Service\ExampleService:
     #     arguments:
     #         $someArgument: 'some_value'
+    app.twig_extension:
+        class: AppBundle\Twig\TwigHelper
+        public: true
+        arguments:
+            $container: "@service_container"
+            $context: "@security.token_storage"
+        tags:
+            - {name: twig.extension }

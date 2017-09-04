@@ -1,0 +1,35 @@
+{% include "::api.html.twig" %}
+<script>
+    var requireJS = [];
+
+</script>
+
+
+
+<div class="animated fadeIn">
+
+    <div class="card">
+        {% if app.user.username==user.username %}
+            <div>
+                <a href="Editar/Perfil" softlink class="float-right btn btn-light" data-toggle="tooltip" data-placement="bottom" title="Editar perfil">
+                    <i class="icon-pencil"></i>
+                </a>
+            </div>
+        {% endif %}
+        <div class="media pt-5 pb-5 pl-3 pr-5">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-sm-4">
+                        <img class="mr-3" src="{{asset('assets/img/avatars/Gold.png')}}" alt="" height="200px">
+                    </div>
+                    <div class="col-12 col-sm-8">
+                        <h5 class="mt-1">{{user.username}}</h5>
+                        <span><a href="mailto:{{user.email}}">{{user.email}}</a></span><br>
+                        <span>Miembro desde: </span><span>{{user.memberSinceString}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/.card-->
+</div>

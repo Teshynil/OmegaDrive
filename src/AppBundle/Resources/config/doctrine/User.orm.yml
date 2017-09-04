@@ -2,12 +2,47 @@ AppBundle\Entity\User:
     type: entity
     table: Users
     repositoryClass: AppBundle\Repository\UserRepository
+    manyToMany:
+        favoriteFiles:
+            targetEntity: File
+            joinTable:
+                name: FavoriteFiles
+                joinColumns:
+                    user:
+                        referencedColumnName: Username
+                inverseJoinColumns:
+                    file:
+                        referencedColumnName: FileID
+        favoriteFolders:
+            targetEntity: Folder
+            joinTable:
+                name: FavoriteFolders
+                joinColumns:
+                    user:
+                        referencedColumnName: Username
+                inverseJoinColumns:
+                    folder:
+                        referencedColumnName: FolderID
     id:
         username:
             type: string
             id: true
+            column: Username
     fields:
+        email:
+            type: string
+            length: '255'
+            column: Email
+            unique: true
         password:
             type: string
             length: '80'
+            column: Password
+        memberSince:
+            type: datetimetz
+            column: MemberSince
+        timezone:
+            type: string
+            length: '128'
+            column: Timezone
     lifecycleCallbacks: {  }

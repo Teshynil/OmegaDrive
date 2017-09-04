@@ -1,10 +1,54 @@
-_homepage:
-    path: /
-    defaults: { _controller: AppBundle:Default:index }
-_log_in:
+_login:
     path:     /login
-    defaults: { _controller: AppBundle:Access:LogIn }
-
+    defaults: { _controller: AppBundle:Access:Login }
+    
+_signup:
+    path:     /signup
+    defaults: { _controller: AppBundle:Access:Signup }
 _logout:
     path:     /logout
-    defaults: { _controller: AppBundle:Access:Logout }
+
+_main:
+    path:     /
+    defaults: { _controller: AppBundle:Main:Main }
+##AJAX PAGES
+_start:
+    path:     /Main
+    defaults: { _controller: AppBundle:Main:Start }
+_files:
+    path:     /Drive
+    defaults: { _controller: AppBundle:Main:Drive }
+_shared:
+    path:     /Compartidos
+    defaults: { _controller: AppBundle:Main:Shared }
+_trash:
+    path:     /Papelera
+    defaults: { _controller: AppBundle:Main:Trash }
+_my_profile:
+    path:     /Perfil
+    defaults: { _controller: AppBundle:Main:Profile }
+_edit_profile:
+    path:     /Editar/Perfil
+    defaults: { _controller: AppBundle:Main:EditProfile }
+_profile:
+    path:     /Perfil/{username}
+    defaults: { _controller: AppBundle:Main:Profile }
+_submit:
+    path:     /API/Submit
+    defaults: { _controller: AppBundle:Api:Submit }
+
+_delete:
+    path:     /API/Delete
+    defaults: { _controller: AppBundle:Api:Delete }
+
+_drop:
+    path:     /API/Drop
+    defaults: { _controller: AppBundle:Api:Drop }
+
+_share:
+    path:     /API/Share
+    defaults: { _controller: AppBundle:Api:Share }
+
+_recover:
+    path:     /API/Recover
+    defaults: { _controller: AppBundle:Api:Recover }

@@ -8,29 +8,53 @@ namespace AppBundle\Entity;
 class Permission
 {
     /**
-     * @var int
+     * @var guid
      */
-    private $id;
+    private $entityID;
 
     /**
-     * @var bool
+     * @var boolean
      */
     private $canRead;
 
     /**
-     * @var bool
+     * @var boolean
      */
     private $canWrite;
 
+    /**
+     * @var \AppBundle\Entity\Entity
+     */
+    private $entity;
 
     /**
-     * Get id
-     *
-     * @return integer
+     * @var \AppBundle\Entity\User
      */
-    public function getId()
+    private $user;
+
+
+    /**
+     * Set entityID
+     *
+     * @param guid $entityID
+     *
+     * @return Permission
+     */
+    public function setEntityID($entityID)
     {
-        return $this->id;
+        $this->entityID = $entityID;
+    
+        return $this;
+    }
+
+    /**
+     * Get entityID
+     *
+     * @return guid
+     */
+    public function getEntityID()
+    {
+        return $this->entityID;
     }
 
     /**
@@ -80,5 +104,52 @@ class Permission
     {
         return $this->canWrite;
     }
-}
 
+    /**
+     * Set entity
+     *
+     * @param \AppBundle\Entity\Entity $entity
+     *
+     * @return Permission
+     */
+    public function setEntity(\AppBundle\Entity\Entity $entity)
+    {
+        $this->entity = $entity;
+    
+        return $this;
+    }
+
+    /**
+     * Get entity
+     *
+     * @return \AppBundle\Entity\Entity
+     */
+    public function getEntity()
+    {
+        return $this->entity;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \AppBundle\Entity\User $user
+     *
+     * @return Permission
+     */
+    public function setUser(\AppBundle\Entity\User $user)
+    {
+        $this->user = $user;
+    
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+}

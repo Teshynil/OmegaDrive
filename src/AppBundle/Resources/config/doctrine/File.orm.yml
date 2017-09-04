@@ -18,6 +18,16 @@ AppBundle\Entity\File:
             joinColumn:
                 name: Entity
                 referencedColumnName: Entity
+        parent:
+            targetEntity: File
+            inversedBy: childs
+            joinColumn:
+                name: Parent
+                referencedColumnName: FileID
+    oneToMany:
+        childs:
+            targetEntity: File
+            mappedBy: parent
     id:
         fileID:
             type: guid
@@ -34,6 +44,9 @@ AppBundle\Entity\File:
             type: string
             length: '32'
             column: Extension
+        size:
+            type: integer
+            column: Size
         creationDate:
             type: datetime
             column: CreationDate

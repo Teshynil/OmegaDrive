@@ -1,7 +1,93 @@
-{% extends "::base.html.twig" %}
+<!DOCTYPE html>
+<html lang="en">
 
-{% block title %}AppBundle:Access:LogIn{% endblock %}
+<head>
 
-{% block body %}
-<h1>Welcome to the Access:LogIn page</h1>
-{% endblock %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="CoreUI Bootstrap 4 Admin Template">
+    <meta name="author" content="Lukasz Holeczek">
+    <meta name="keyword" content="CoreUI Bootstrap 4 Admin Template">
+    <!-- <link rel="shortcut icon" href="assets/ico/favicon.png"> -->
+
+    <title>CoreUI Bootstrap 4 Admin Template</title>
+
+    <!-- Icons -->
+    <link href="{{asset('assets/css/font-awesome.min.css')}}" rel="stylesheet">
+    <link href="{{asset('assets/css/simple-line-icons.css')}}" rel="stylesheet">
+
+    <!-- Main styles for this application -->
+    <link href="{{asset('assets/css/style.css')}}" rel="stylesheet">
+
+</head>
+
+<body class="app flex-row align-items-center">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card-group mb-0">
+                    <div class="card p-4">
+                        <div class="card-body">
+                            <form method="POST" action="{{path('_login')}}">
+                                <h1>Entrar</h1>
+                                <p class="text-muted">Inicia sesion en OmegaDrive</p>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-addon"><i class="icon-user"></i>
+                                    </span>
+                                    <input name="_username" type="text" class="form-control" placeholder="Username">
+                                </div>
+                                <div class="input-group mb-4">
+                                    <span class="input-group-addon"><i class="icon-lock"></i>
+                                    </span>
+                                    <input name="_password" type="password" class="form-control" placeholder="Contraseña">
+                                </div>
+                                <div class="row mb-4">
+                                    <div class="col-4">
+                                        <button type="submit" class="btn btn-primary px-4">Entrar</button>
+                                    </div>
+                                    <div class="col-8 text-right">
+                                        <button type="button" class="btn btn-link px-0">¿Olvidaste tu contraseña?</button>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-center d-lg-none">
+                                    <div class="col-6 text-center">
+                                        <a href="{{path('_signup')}}" class="btn btn-dark px-4">Registrarse</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="card text-white bg-primary py-5 d-md-down-none" style="width:44%">
+                        <div class="card-body text-center">
+                            <div>
+                                <h2>Registrate</h2>
+                                <p>
+                                    Registrate hoy y obten 5 GB de almacenamiento gratis.
+                                </p>
+                                <div class="text-left">
+                                    <ul>
+                                    Con OmegaDrive:
+                                        <li>No sufriras de perdidas de archivos.</li>
+                                        <li>Podras compartir tus archivos.</li>
+                                        <li>Podras tener varias versiones del mismo archivo.</li>
+                                    </ul>
+                                </div>
+                                <a href="{{path('_signup')}}" class="btn btn-primary active mt-3">Registrate ya!</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap and necessary plugins -->
+    <script src="{{asset('assets/vendor/jquery/dist/jquery.min.js')}}"></script>
+    <script src="{{asset('assets/vendor/tether/dist/js/tether.min.js')}}"></script>
+    <script src="{{asset('assets/vendor/popper.js/index.js')}}"></script>
+    <script src="{{asset('assets/vendor/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+
+</body>
+
+</html>

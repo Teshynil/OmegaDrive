@@ -1,0 +1,332 @@
+<?php
+
+namespace AppBundle\Entity;
+
+/**
+ * File
+ */
+class File
+{
+    /**
+     * @var guid
+     */
+    private $fileID;
+
+    /**
+     * @var string
+     */
+    private $name;
+
+    /**
+     * @var string
+     */
+    private $extension;
+
+    /**
+     * @var \DateTime
+     */
+    private $creationDate;
+
+    /**
+     * @var \DateTime
+     */
+    private $lastModifiedDate;
+
+    /**
+     * @var \DateTime
+     */
+    private $lastAccessDate;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $childs;
+
+    /**
+     * @var \AppBundle\Entity\Folder
+     */
+    private $folder;
+
+    /**
+     * @var \AppBundle\Entity\User
+     */
+    private $owner;
+
+    /**
+     * @var \AppBundle\Entity\Entity
+     */
+    private $entity;
+
+    /**
+     * @var \AppBundle\Entity\File
+     */
+    private $parent;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->childs = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Get fileID
+     *
+     * @return guid
+     */
+    public function getFileID()
+    {
+        return $this->fileID;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return File
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set extension
+     *
+     * @param string $extension
+     *
+     * @return File
+     */
+    public function setExtension($extension)
+    {
+        $this->extension = $extension;
+    
+        return $this;
+    }
+
+    /**
+     * Get extension
+     *
+     * @return string
+     */
+    public function getExtension()
+    {
+        return $this->extension;
+    }
+
+    /**
+     * Set creationDate
+     *
+     * @param \DateTime $creationDate
+     *
+     * @return File
+     */
+    public function setCreationDate($creationDate)
+    {
+        $this->creationDate = $creationDate;
+    
+        return $this;
+    }
+
+    /**
+     * Get creationDate
+     *
+     * @return \DateTime
+     */
+    public function getCreationDate()
+    {
+        return $this->creationDate;
+    }
+
+    /**
+     * Set lastModifiedDate
+     *
+     * @param \DateTime $lastModifiedDate
+     *
+     * @return File
+     */
+    public function setLastModifiedDate($lastModifiedDate)
+    {
+        $this->lastModifiedDate = $lastModifiedDate;
+    
+        return $this;
+    }
+
+    /**
+     * Get lastModifiedDate
+     *
+     * @return \DateTime
+     */
+    public function getLastModifiedDate()
+    {
+        return $this->lastModifiedDate;
+    }
+
+    /**
+     * Set lastAccessDate
+     *
+     * @param \DateTime $lastAccessDate
+     *
+     * @return File
+     */
+    public function setLastAccessDate($lastAccessDate)
+    {
+        $this->lastAccessDate = $lastAccessDate;
+    
+        return $this;
+    }
+
+    /**
+     * Get lastAccessDate
+     *
+     * @return \DateTime
+     */
+    public function getLastAccessDate()
+    {
+        return $this->lastAccessDate;
+    }
+
+    /**
+     * Add child
+     *
+     * @param \AppBundle\Entity\File $child
+     *
+     * @return File
+     */
+    public function addChild(\AppBundle\Entity\File $child)
+    {
+        $this->childs[] = $child;
+    
+        return $this;
+    }
+
+    /**
+     * Remove child
+     *
+     * @param \AppBundle\Entity\File $child
+     */
+    public function removeChild(\AppBundle\Entity\File $child)
+    {
+        $this->childs->removeElement($child);
+    }
+
+    /**
+     * Get childs
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getChilds()
+    {
+        return $this->childs;
+    }
+
+    /**
+     * Set folder
+     *
+     * @param \AppBundle\Entity\Folder $folder
+     *
+     * @return File
+     */
+    public function setFolder(\AppBundle\Entity\Folder $folder = null)
+    {
+        $this->folder = $folder;
+    
+        return $this;
+    }
+
+    /**
+     * Get folder
+     *
+     * @return \AppBundle\Entity\Folder
+     */
+    public function getFolder()
+    {
+        return $this->folder;
+    }
+
+    /**
+     * Set owner
+     *
+     * @param \AppBundle\Entity\User $owner
+     *
+     * @return File
+     */
+    public function setOwner(\AppBundle\Entity\User $owner = null)
+    {
+        $this->owner = $owner;
+    
+        return $this;
+    }
+
+    /**
+     * Get owner
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getOwner()
+    {
+        return $this->owner;
+    }
+
+    /**
+     * Set entity
+     *
+     * @param \AppBundle\Entity\Entity $entity
+     *
+     * @return File
+     */
+    public function setEntity(\AppBundle\Entity\Entity $entity = null)
+    {
+        $this->entity = $entity;
+    
+        return $this;
+    }
+
+    /**
+     * Get entity
+     *
+     * @return \AppBundle\Entity\Entity
+     */
+    public function getEntity()
+    {
+        return $this->entity;
+    }
+
+    /**
+     * Set parent
+     *
+     * @param \AppBundle\Entity\File $parent
+     *
+     * @return File
+     */
+    public function setParent(\AppBundle\Entity\File $parent = null)
+    {
+        $this->parent = $parent;
+    
+        return $this;
+    }
+
+    /**
+     * Get parent
+     *
+     * @return \AppBundle\Entity\File
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+}

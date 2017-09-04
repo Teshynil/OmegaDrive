@@ -3,11 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/wamp/www/OmegaDrive/src/AppBundle/Resources/config/doctrine/Trash.orm.yml</file>
-            <file>file:/C:/wamp/www/OmegaDrive/src/AppBundle/Resources/config/doctrine/File.orm.yml</file>
+            <file>file:/C:/wamp/www/OmegaDrive/src/AppBundle/Resources/views/Main/editProfile.html.twig</file>
+            <file>file:/C:/wamp/www/OmegaDrive/src/AppBundle/Resources/views/Main/start.html.twig</file>
+            <file>file:/C:/wamp/www/OmegaDrive/src/AppBundle/Resources/views/Main/trash.html.twig</file>
+            <file>file:/C:/wamp/www/OmegaDrive/src/AppBundle/Entity/User.php</file>
             <file>file:/C:/wamp/www/OmegaDrive/src/AppBundle/Resources/config/doctrine/Entity.orm.yml</file>
             <file>file:/C:/wamp/www/OmegaDrive/src/AppBundle/Resources/config/doctrine/User.orm.yml</file>
-            <file>file:/C:/wamp/www/OmegaDrive/src/AppBundle/Resources/config/doctrine/Folder.orm.yml</file>
+            <file>file:/C:/wamp/www/OmegaDrive/src/AppBundle/Controller/MainController.php</file>
+            <file>file:/C:/wamp/www/OmegaDrive/src/AppBundle/Resources/views/Main/main.html.twig</file>
+            <file>file:/C:/wamp/www/OmegaDrive/src/AppBundle/Resources/config/routing.yml</file>
         </group>
     </open-files>
 </project-private>

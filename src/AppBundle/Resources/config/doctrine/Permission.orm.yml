@@ -1,13 +1,26 @@
 AppBundle\Entity\Permission:
     type: entity
-    table: null
+    table: Permissions
     repositoryClass: AppBundle\Repository\PermissionRepository
+    manyToOne:
+        entity:
+            targetEntity: Entity
+            joinColumn:
+                name: Entity
+                referencedColumnName: Entity
+        user:
+            targetEntity: User
+            joinColumn:
+                name: User
+                referencedColumnName: Username
     id:
-        id:
-            type: integer
+        entityID:
+            type: guid
             id: true
-            generator:
-                strategy: AUTO
+        entity:
+            associationKey: true
+        user:
+            associationKey: true
     fields:
         canRead:
             type: boolean
