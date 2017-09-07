@@ -12,6 +12,5 @@
 /var/sessions/*
 !var/sessions/.gitkeep
 !var/SymfonyRequirements.php
-/vendor/
 nbproject/private/private.xml
 src/AppBundle/Drive/*
