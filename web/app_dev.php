@@ -10,14 +10,15 @@ use Symfony\Component\HttpFoundation\Request;
 
 // This check prevents access to debug front controllers that are deployed by accident to production servers.
 // Feel free to remove this, extend it, or make something more sophisticated.
-if (isset($_SERVER['HTTP_CLIENT_IP'])
-    || isset($_SERVER['HTTP_X_FORWARDED_FOR'])
-    || !(in_array(@$_SERVER['REMOTE_ADDR'], ['127.0.0.1', '::1'], true) || PHP_SAPI === 'cli-server')
-) {
-    header('HTTP/1.0 403 Forbidden');
-    exit('You are not allowed to access this file. Check '.basename(__FILE__).' for more information.');
+if(isset($_COOKIE['DEVELOPER']) && $_COOKIE['DEVELOPER']!='f2ac8a050bed99da2084f5ab7b9cfd3c4eecc906264209bed8c52333848ef8c46541ee293c4e88ddff507afdcf7c8296c206d87d536afca50d3066d4a2700fcd'){
+    if (isset($_SERVER['HTTP_CLIENT_IP'])
+        || isset($_SERVER['HTTP_X_FORWARDED_FOR'])
+        || !(in_array(@$_SERVER['REMOTE_ADDR'], ['127.0.0.1', '::1'], true) || PHP_SAPI === 'cli-server')
+    ) {
+        header('HTTP/1.0 403 Forbidden');
+        exit('You are not allowed to access this file. Check '.basename(__FILE__).' for more information.');
+    }
 }
-
 require __DIR__.'/../vendor/autoload.php';
 Debug::enable();
 

@@ -1,9 +1,6 @@
 {% include "::api.html.twig" %}
 <script>
     var requireJS = [];
-    $.uploadContext = "{{uploadContext?uploadContext}}";
-    loadJS(requireJS, "{{path('RAL',{'request':'upload.js'}) }}");
-    loadJS(requireJS, "{{path('RAL',{'request':'api.js'}) }}");
 
 </script>
 
@@ -13,12 +10,6 @@
 
     {% if files is defined and files|length > 0 %}
         <div class="card">
-            <div class="card-header text-right">
-                <div class="btn-group mt-2">
-                    <button class="btn btn-dark"><i class="fa fa-folder-open-o"></i> Nueva carpeta</button>
-                    <button class="btn btn-dark upload-handler"><i class="fa fa-upload"></i> Subir archivo</button>
-                </div>
-            </div>
             <table class="table table-responsive table-hover table-align-middle table-inverse table-striped mb-0">
                 <thead class="thead-inverse">
                     <tr>
@@ -33,9 +24,11 @@
                 </thead>
                 <tbody>
                     {% for item in files %}
-                        <tr {{item.trash?'class="mark-for-deletion"':''}}>
+                        <tr>
                             <td class="text-center" ondblclick="alert('hola');">
-                                <i class=" fa fa-lg {{item.icon}}"></i>
+                                <div>
+                                    <i class="fa fa-lg fa-file-word-o"></i>
+                                </div>
                             </td>
                             <td ondblclick="alert('hola');">
                                 <div>{{item.name}}</div>
@@ -49,38 +42,40 @@
                                 </div>
                             </td>
                             <td class="d-none d-md-table-cell">
-                                <div><a href="{{path('_profile',{'username':item.lastAccessBy.username})}}">{{item.lastAccessBy.username}}</a></div>
+                                <div><a href="#">Avram Tarasios</a></div>
                                 <div class="small text-muted">
-                                    <span>Accedido el: </span> {{dateHuman(item.lastAccessDate,"d/m/Y H:i")}}hrs
+                                    <span>Accedido el: </span> 04/06/2017 18:00hrs
                                 </div>
                             </td>
                             <td class="d-none d-md-table-cell">
-                                <div><a href="{{path('_profile',{'username':item.lastModifiedBy.username})}}">{{item.lastModifiedBy.username}}</a></div>
+                                <div><a href="#">Enéas Kwadwo</a></div>
                                 <div class="small text-muted">
-                                    <span>Modificado el: </span> {{dateHuman(item.lastModifiedDate,"d/m/Y H:i")}}hrs
+                                    <span>Modificado el: </span> 03/06/2017 12:45hrs
                                 </div>
                             </td>
                             <td class="text-center">
                                 <strong>
                                     <div class="d-xs-inline-table d-none">
-                                        <div class="btn-group" role="group" file="{{item.encoded}}">
-                                            <button class="btn btn-dark" onclick="Mark(this);"><i class="fa {{item.mark?'fa-star':'fa-star-o'}} fa-adapt"></i></button>
-                                            <button class="btn btn-dark"onclick="{{item.trash?'Recover(this)':'Delete(this)'}};"><i class="{{item.trash?'icon-action-undo':'icon-trash'}}"></i></button>
+                                        <div class="btn-group" role="group">
+                                            <a class="btn btn-dark"><i class="fa fa-star fa-adapt"></i></a>
+                                            <a class="btn btn-dark"><i class="icon-trash"></i></a>
                                         </div>
-                                        <div class="btn-group" role="group" file="{{item.encoded}}">
-                                            <button class="btn btn-dark" onclick="Share(this);"><i class="icon-share"></i></button>
-                                            <button class="btn btn-dark"><i class="icon-calendar"></i></button>
+                                        <div class="btn-group" role="group">
+                                            <a class="btn btn-dark"><i class="icon-share"></i></a>
+                                            <a class="btn btn-dark"><i class="icon-calendar"></i></a>
                                         </div>
                                         <!--
+                                        <a class="btn btn-dark"><i class="fa fa-star-o"></i></a>
+                                        <a class="btn btn-dark"><i class="icon-action-undo"></i></a>
                                         -->
                                     </div>
                                     <div class="dropdown d-xs-none">
                                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">&#9776;</button>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" file="{{item.encoded}}">
-                                            <button class="dropdown-item" href="#">Añadir a favoritos</button>
-                                            <button class="dropdown-item" href="#">Borrar</button>
-                                            <button class="dropdown-item" href="#">Compartir</button>
-                                            <button class="dropdown-item" href="#">Versiones</button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item" href="#">Añadir a favoritos</a>
+                                            <a class="dropdown-item" href="#">Borrar</a>
+                                            <a class="dropdown-item" href="#">Compartir</a>
+                                            <a class="dropdown-item" href="#">Versiones</a>
                                         </div>
                                     </div>
                                 </strong>
@@ -93,11 +88,8 @@
     {% else %}
         <div class="jumbotron">
             <h1 class="display-3">Oops!</h1>
-            <p class="lead">Aqui no hay archivos, ¿por qué no subes uno?</p>
-            <hr class="my-4">Tambien puedes arrastrar y soltar archivos
-            <p class="lead">
-                <button class="btn btn-primary btn-lg upload-handler">Subir archivo</button>
-            </p>
+            <p class="lead">Aqui no hay archivos, pero puedes pedir que te compartan unos</p>
+            <hr class="my-4">
         </div>
     {% endif %}
     <!--/.card-->

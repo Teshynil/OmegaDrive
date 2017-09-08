@@ -17,7 +17,7 @@ class TwigHelper extends \Twig_Extension{
         return array(
             new \Twig_SimpleFunction('isLogged',array($this,"isLogged"),array('needs_context' => true)),
             new \Twig_SimpleFunction('dateHuman',array($this,"dateHuman")),
-            new \Twig_SimpleFunction('bytesConvert',array($this,"bytesConvert"))
+            new \Twig_SimpleFunction('bytesConvert',array($this,"bytesConvert")),
         );
     }
     public function isLogged($context){

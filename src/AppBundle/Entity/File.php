@@ -63,6 +63,16 @@ class File
     private $parent;
 
     /**
+     * @var \AppBundle\Entity\User
+     */
+    private $lastModifiedBy;
+
+    /**
+     * @var \AppBundle\Entity\User
+     */
+    private $lastAccessBy;
+    
+    /**
      * Constructor
      */
     public function __construct()
@@ -357,5 +367,117 @@ class File
     public function getSize()
     {
         return $this->size;
+    }
+    
+    /**
+     * Set lastModifiedBy
+     *
+     * @param \AppBundle\Entity\User $lastModifiedBy
+     *
+     * @return File
+     */
+    public function setLastModifiedBy(\AppBundle\Entity\User $lastModifiedBy = null)
+    {
+        $this->lastModifiedBy = $lastModifiedBy;
+
+        return $this;
+    }
+
+    /**
+     * Get lastModifiedBy
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getLastModifiedBy()
+    {
+        return $this->lastModifiedBy;
+    }
+
+    /**
+     * Set lastAccessBy
+     *
+     * @param \AppBundle\Entity\User $lastAccessBy
+     *
+     * @return File
+     */
+    public function setLastAccessBy(\AppBundle\Entity\User $lastAccessBy = null)
+    {
+        $this->lastAccessBy = $lastAccessBy;
+
+        return $this;
+    }
+
+    /**
+     * Get lastAccessBy
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getLastAccessBy()
+    {
+        return $this->lastAccessBy;
+    }
+    
+    /**
+     * Propiedades Adicionales
+     */
+    
+    /**
+     * @var boolean
+     */
+    private $mark=false;
+    /**
+     * @var boolean
+     */
+    private $trash=false;
+    /**
+     * Metodos adicionales
+     */
+    public function getIcon(){
+        $ext=$this->getExtension();
+        if(in_array($ext, ['odm','odt','doc','docx'])){
+            return "fa-file-word-o";
+        }else if(in_array($ext, ['xls','xlsx','csv','ods','ots'])){
+            return "fa-file-excel-o";
+        }else if(in_array($ext, ['odp','odg','otp','ppt','pps','pptx','potx'])){
+            return "fa-file-powerpoint-o";
+        }else if(in_array($ext, ['txt','uot','rtf'])){
+            return "fa-file-text-o";
+        }else if(in_array($ext, ['tar','bz2','gz','7z','s7z','dmg','rar','zip','pea'])){
+            return "fa-file-archive-o";
+        }else if(in_array($ext, ['webm','mkv','flv','flv','vob','ogv','ogg','drc','mng','avi','mov','qt','wmv','yuv','rm','rmvb','asf','amv','mp4','m4v','mpg','mp2','mpeg','mpe','mpv','mpg','mpeg','m2v','m4v','svi','3gp','3g2','mxf','roq','nsv','flv','f4v','f4p','f4a','f4b'])){
+            return "fa-file-video-o";
+        }else if(in_array($ext, ['amr','mp1','mp2','mp3','aac','flac','wma'])){
+            return "fa-file-audio-o";
+        }else if(in_array($ext, ['bmp','jpeg','jpg','pcx','psd','sgv','wmf','dxf','met','pgm','svm','emf','sda','tga','eps','pcd','png','sdd','tif','tiff','gif','pct','sgf','webp'])){
+            return "fa-file-image-o";
+        }else if(in_array($ext, ['pdf'])){
+            return "fa-file-pdf-o";
+        }else {
+            return "fa-file-o";
+        }
+    }
+    
+    public function setMark($mark){
+        $this->mark=$mark;
+    }
+    
+    public function getMark(){
+        return $this->mark;
+    }
+    
+    public function setTrash($trash){
+        $this->trash=$trash;
+    }
+    
+    public function getTrash(){
+        return $this->trash;
+    }
+    public function getEncoded(){
+        $data=[
+            'id'=>$this->getFileID(),
+            'entity'=>$this->getEntity()->getEntity()
+        ];
+        $json=json_encode($data,JSON_UNESCAPED_UNICODE);
+        return base64_encode($json);
     }
 }

@@ -24,6 +24,16 @@ AppBundle\Entity\File:
             joinColumn:
                 name: Parent
                 referencedColumnName: FileID
+        lastModifiedBy:
+            targetEntity: User
+            joinColumn:
+                name: LastModifiedBy
+                referencedColumnName: Username
+        lastAccessBy:
+            targetEntity: User
+            joinColumn:
+                name: LastAccessBy
+                referencedColumnName: Username
     oneToMany:
         childs:
             targetEntity: File

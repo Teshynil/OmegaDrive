@@ -11,6 +11,13 @@ _logout:
 _main:
     path:     /
     defaults: { _controller: AppBundle:Main:Main }
+    
+##Resource Asyncronous Loading
+RAL:
+    path:     /RAL/{request}
+    defaults: { _controller: AppBundle:RAL:index }
+    requirements:
+        request: .+
 ##AJAX PAGES
 _start:
     path:     /Main
@@ -33,22 +40,28 @@ _edit_profile:
 _profile:
     path:     /Perfil/{username}
     defaults: { _controller: AppBundle:Main:Profile }
+    
+##API METHODS
 _submit:
     path:     /API/Submit
-    defaults: { _controller: AppBundle:Api:Submit }
+    defaults: { _controller: AppBundle:Api:Submit, item: ~ }
+    
+_mark:
+    path:     /API/Mark/{item}
+    defaults: { _controller: AppBundle:Api:Mark, item: ~ }
 
 _delete:
-    path:     /API/Delete
-    defaults: { _controller: AppBundle:Api:Delete }
+    path:     /API/Delete/{item}
+    defaults: { _controller: AppBundle:Api:Delete, item: ~ }
 
 _drop:
-    path:     /API/Drop
-    defaults: { _controller: AppBundle:Api:Drop }
+    path:     /API/Drop/{item}
+    defaults: { _controller: AppBundle:Api:Drop, item: ~ }
 
 _share:
-    path:     /API/Share
-    defaults: { _controller: AppBundle:Api:Share }
+    path:     /API/Share/{item}
+    defaults: { _controller: AppBundle:Api:Share, item: ~ }
 
 _recover:
-    path:     /API/Recover
-    defaults: { _controller: AppBundle:Api:Recover }
+    path:     /API/Recover/{item}
+    defaults: { _controller: AppBundle:Api:Recover, item: ~ }

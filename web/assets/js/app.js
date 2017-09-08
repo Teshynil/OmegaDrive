@@ -3,7 +3,6 @@
  */
 // Active ajax page loader
 $.ajaxLoad = true;
-
 //required when $.ajaxLoad = true
 $.defaultPage = 'Main';
 $.subPagesDirectory = '';
@@ -155,6 +154,7 @@ function setUpUrl(url, softlink = false, method = 'GET') {
 
 function loadPage(url, softlink = false, method = 'GET') {
     actualPage=url;
+    url=url.replace($.subPagesDirectory,"");
     if (method === 'GET') {
         $.ajax({
             type: 'GET',
@@ -349,6 +349,9 @@ function destroypage() {
     
     $.mainContent.off('click', 'a[href!="#"]:not([hardlink])');
     $.mainContent.off('submit', 'form');
+    if(mainDropzone!=undefined){
+        mainDropzone.destroy();
+    }
 }
 function initPage() {
 

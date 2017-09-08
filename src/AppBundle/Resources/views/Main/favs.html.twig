@@ -1,10 +1,8 @@
 {% include "::api.html.twig" %}
 <script>
     var requireJS = [];
-    $.uploadContext = "{{uploadContext?uploadContext}}";
     loadJS(requireJS, "{{path('RAL',{'request':'upload.js'}) }}");
     loadJS(requireJS, "{{path('RAL',{'request':'api.js'}) }}");
-
 </script>
 
 
@@ -13,12 +11,6 @@
 
     {% if files is defined and files|length > 0 %}
         <div class="card">
-            <div class="card-header text-right">
-                <div class="btn-group mt-2">
-                    <button class="btn btn-dark"><i class="fa fa-folder-open-o"></i> Nueva carpeta</button>
-                    <button class="btn btn-dark upload-handler"><i class="fa fa-upload"></i> Subir archivo</button>
-                </div>
-            </div>
             <table class="table table-responsive table-hover table-align-middle table-inverse table-striped mb-0">
                 <thead class="thead-inverse">
                     <tr>
@@ -33,7 +25,7 @@
                 </thead>
                 <tbody>
                     {% for item in files %}
-                        <tr {{item.trash?'class="mark-for-deletion"':''}}>
+                        <tr>
                             <td class="text-center" ondblclick="alert('hola');">
                                 <i class=" fa fa-lg {{item.icon}}"></i>
                             </td>
@@ -64,8 +56,16 @@
                                 <strong>
                                     <div class="d-xs-inline-table d-none">
                                         <div class="btn-group" role="group" file="{{item.encoded}}">
-                                            <button class="btn btn-dark" onclick="Mark(this);"><i class="fa {{item.mark?'fa-star':'fa-star-o'}} fa-adapt"></i></button>
-                                            <button class="btn btn-dark"onclick="{{item.trash?'Recover(this)':'Delete(this)'}};"><i class="{{item.trash?'icon-action-undo':'icon-trash'}}"></i></button>
+                                            {% if item.mark %}
+                                                <button class="btn btn-dark" onclick="Mark(this);"><i class="fa fa-star fa-adapt"></i></button>
+                                            {% else %}
+                                                <button class="btn btn-dark" onclick="Mark(this);"><i class="fa fa-star-o fa-adapt"></i></button>
+                                            {% endif %}
+                                            {% if item.trash %}
+                                                <button class="btn btn-dark" onclick="Recover(this);"><i class="icon-action-undo"></i></button>
+                                            {% else %}
+                                                <button class="btn btn-dark"onclick="Delete(this);"><i class="icon-trash"></i></button>
+                                            {% endif  %}
                                         </div>
                                         <div class="btn-group" role="group" file="{{item.encoded}}">
                                             <button class="btn btn-dark" onclick="Share(this);"><i class="icon-share"></i></button>
@@ -93,11 +93,14 @@
     {% else %}
         <div class="jumbotron">
             <h1 class="display-3">Oops!</h1>
-            <p class="lead">Aqui no hay archivos, ¿por qué no subes uno?</p>
-            <hr class="my-4">Tambien puedes arrastrar y soltar archivos
-            <p class="lead">
-                <button class="btn btn-primary btn-lg upload-handler">Subir archivo</button>
-            </p>
+            <p class="lead">Aqui no hay archivos, pero puedes añadirlos haciendo click en destacar.</p>
+            <picture>
+                <source media="(min-width: 1024px)" srcset="{{asset('assets/img/help/add_fav_lg.png')}}">
+                <source media="(min-width: 768px)" srcset="{{asset('assets/img/help/add_fav_md.png')}}">
+                <source media="(min-width: 350px)" srcset="{{asset('assets/img/help/add_fav_sm.png')}}">
+                <img class="img-fluid" src="{{asset('assets/img/help/add_fav_xs.png')}}" alt="" style="">
+            </picture>
+            <hr class="my-4">
         </div>
     {% endif %}
     <!--/.card-->

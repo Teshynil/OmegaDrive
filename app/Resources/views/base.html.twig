@@ -22,7 +22,10 @@
         <link href="{{asset('assets/vendor/SpinKit/css/spinkit.css')}}" rel="stylesheet">
         <link href="{{asset('assets/vendor/SpinKit/css/spinners/2-double-bounce.css')}}" rel="stylesheet">
         {% block stylesheets %}{% endblock %}
-        <script>var actualPage='';</script>
+        <script>
+            var actualPage='';
+            var mainDropzone=undefined;
+        </script>
     </head>
     <!-- BODY options, add following classes to body to change options
 

@@ -1,0 +1,67 @@
+
+function Mark(e){
+    var data=$(e).parent().attr('file');
+    $.ajax({
+            type: 'GET',
+            url: "{{path('_mark')}}/"+data,
+            async: true,
+            success: function (r) {
+                if(r.ok){
+                    var i=$(e).find('i');
+                    i.removeClass('fa-star');
+                    i.removeClass('fa-star-o');
+                    if(r.mark){
+                        i.addClass('fa-star');
+                    }else{
+                        i.addClass('fa-star-o');
+                    }
+                }
+            }
+        });
+}
+
+function Share(e){
+    
+}
+
+function Delete(e){
+    var data=$(e).parent().attr('file');
+    $.ajax({
+            type: 'GET',
+            url: "{{path('_delete')}}/"+data,
+            async: true,
+            success: function (r) {
+                if(r.ok){
+                    var i=$(e).find('i');
+                    i.removeClass('icon-trash');
+                    i.addClass('icon-action-undo');
+                    var tr=$(e).parents('tr');
+                    tr.addClass('mark-for-deletion');
+                    $(e).attr('onclick','Recover(this)');
+                }
+            }
+        });
+}
+
+function Recover(e){
+    var data=$(e).parent().attr('file');
+    $.ajax({
+            type: 'GET',
+            url: "{{path('_recover')}}/"+data,
+            async: true,
+            success: function (r) {
+                if(r.ok){
+                    var i=$(e).find('i');
+                    i.removeClass('icon-action-undo');
+                    i.addClass('icon-trash');
+                    var tr=$(e).parents('tr');
+                    tr.removeClass('mark-for-deletion');
+                    $(e).attr('onclick','Delete(this)');
+                }
+            }
+        });
+}
+
+function Drop(e){
+    
+}

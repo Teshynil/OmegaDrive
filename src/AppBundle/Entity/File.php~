@@ -329,4 +329,33 @@ class File
     {
         return $this->parent;
     }
+    /**
+     * @var integer
+     */
+    private $size;
+
+
+    /**
+     * Set size
+     *
+     * @param integer $size
+     *
+     * @return File
+     */
+    public function setSize($size)
+    {
+        $this->size = $size;
+    
+        return $this;
+    }
+
+    /**
+     * Get size
+     *
+     * @return integer
+     */
+    public function getSize()
+    {
+        return $this->size;
+    }
 }

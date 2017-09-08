@@ -8,6 +8,11 @@ AppBundle\Entity\Trash:
             joinColumn:
                 name: Entity
                 referencedColumnName: Entity
+        deletedBy:
+            targetEntity: User
+            joinColumn:
+                name: DeletedBy
+                referencedColumnName: Username
     id:
         entityID:
             type: guid
@@ -19,4 +24,7 @@ AppBundle\Entity\Trash:
         liveUntil:
             type: datetime
             column: LiveUntil
+        deletedOn:
+            type: datetime
+            column: DeletedOn
     lifecycleCallbacks: {  }

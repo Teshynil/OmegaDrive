@@ -11,8 +11,15 @@ class Entity
      * @var string
      */
     private $Entity;
-
-
+    
+    /**
+     * Constructor
+     * @param string $entity
+     * 
+     */
+    public function __construct($entity) {
+        $this->setEntity($entity);
+    }
     /**
      * Set entity
      *
@@ -37,4 +44,3 @@ class Entity
         return $this->Entity;
     }
 }
-

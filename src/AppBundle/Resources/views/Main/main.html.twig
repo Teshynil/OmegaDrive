@@ -74,7 +74,7 @@
                 </div>
             </div>
             <div id="upload-file" style="position: fixed;z-index: 100;right: 0px;bottom: 50px;">
-                <button class="btn btn-primary upload-file">
+                <button class="btn btn-primary upload-file upload-handler d-md-none d-block">
                     <i class="icon-plus"></i>
                 </button>
                 <div id="upload-preview-zone" class="d-none"></div>
@@ -93,36 +93,5 @@
     </footer>
 {% endblock %}
 {% block javascripts %}
-    <script>
-        $("main").dropzone({
-            url: "{{path('_submit')}}",
-            paramName: "uploaded-file",
-            params: $.uploadContext,
-            previewsContainer: "#upload-preview-zone",
-            clickable: "button.upload-file",
-            createImageThumbnails: false,
-            init: function () {
-                this.on("sending", function (file, xhr, data) {
-                    data.append('uploadContext', $.uploadContext);
-                    $('#upload-preview-zone').html('');
-                    $.mainContent.animate({opacity: 0}, 500, 'swing', function () {
-                        $.mainContent.css({display: 'none'});
-                    });
-                    $.loader.css({display: 'block'});
-                });
-                this.on("complete", function (file) {
-                    $('#upload-preview-zone').html('');
-                    $('html, body').animate({scrollTop: 0}, 0);
-                    $.mainContent.animate({opacity: 1}, 500, 'swing', function () {
-                        $.mainContent.css({display: 'block'});
-                        $.loader.css({display: 'none'});
-                    });
-                });
-                this.on("success", function (file,data) {
-                    loadPage(actualPage);
-                });
-            }
-        });
-
-    </script>
+    
 {% endblock %}

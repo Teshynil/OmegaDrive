@@ -153,4 +153,3 @@ class Permission
         return $this->user;
     }
 }
-

@@ -94,4 +94,33 @@ class Trash
     {
         return $this->entity;
     }
+    /**
+     * @var \AppBundle\Entity\User
+     */
+    private $deletedBy;
+
+
+    /**
+     * Set deletedBy
+     *
+     * @param \AppBundle\Entity\User $deletedBy
+     *
+     * @return Trash
+     */
+    public function setDeletedBy(\AppBundle\Entity\User $deletedBy = null)
+    {
+        $this->deletedBy = $deletedBy;
+
+        return $this;
+    }
+
+    /**
+     * Get deletedBy
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getDeletedBy()
+    {
+        return $this->deletedBy;
+    }
 }

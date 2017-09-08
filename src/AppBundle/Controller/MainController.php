@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\User;
+use Doctrine\ORM\Query\ResultSetMapping;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -24,17 +25,34 @@ class MainController extends Controller {
     }
 
     public function StartAction() {
-
+        $em=$this->getDoctrine()->getManager();
+        $me=$this->getUser();
+        $files=$me->getFavoriteFiles();
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('1', 'Result');
+        foreach ($files as $file) {
+            $file->setMark(true);
+            $query=$em->createNativeQuery(
+                    'SELECT 1 '
+                    . 'FROM TRASHBIN '
+                    . 'WHERE ENTITYID=? AND ENTITY=?',$rsm);
+            $query->setParameter(1,$file->getFileID())->setParameter(2,$file->getEntity());
+            $result=$query->getResult();
+            if(count($result)>0){
+                $file->setTrash(true);
+            }
+        }
         return $this->render('AppBundle:Main:drive.html.twig', array(
-                        // ...
+            'files'=>$files,
+            'uploadContext'=>''
         ));
     }
 
     public function DriveAction(Request $request) {
-        $context=$request->request->get('uploadContext',NULL);
+        $context=$request->request->get('uploadContext','');
         $em=$this->getDoctrine()->getManager();
         $me=$this->getUser();
-        if($context!==NULL){
+        if($context!==''){
             $folder=$em->find('AppBundle:Folder', $context);
             if($folder==NULL){
                 $folder=NULL;
@@ -45,22 +63,63 @@ class MainController extends Controller {
             $folder=NULL;
         }
         $files=$em->getRepository('AppBundle:File')->findBy(['owner'=>$me->getUsername(),'folder'=>$folder,'parent'=>NULL]);
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('1', 'Result');
+        foreach ($files as $file) {
+            $query=$em->createNativeQuery(
+                    'SELECT 1 '
+                    . 'FROM FAVORITEFILES '
+                    . 'WHERE USER=? AND FILE=?',$rsm);
+            $query->setParameter(1,$me->getUsername())->setParameter(2,$file->getFileID());
+            $result=$query->getResult();
+            if(count($result)>0){
+                $file->setMark(true);
+            }
+            $query=$em->createNativeQuery(
+                    'SELECT 1 '
+                    . 'FROM TRASHBIN '
+                    . 'WHERE ENTITYID=? AND ENTITY=?',$rsm);
+            $query->setParameter(1,$file->getFileID())->setParameter(2,$file->getEntity());
+            $result=$query->getResult();
+            if(count($result)>0){
+                $file->setTrash(true);
+            }
+        }
         return $this->render('AppBundle:Main:drive.html.twig', array(
-            'files'=>$files
+            'files'=>$files,
+            'uploadContext'=>$context
         ));
     }
 
     public function SharedAction(Request $request) {
 
-        return $this->render('AppBundle:Main:drive.html.twig', array(
+        return $this->render('AppBundle:Main:shared.html.twig', array(
                         // ...
         ));
     }
 
     public function TrashAction() {
-
-        return $this->render('AppBundle:Main:Trash.html.twig', array(
-                        // ...
+        $me = new User();
+        $em=$this->getDoctrine()->getManager();
+        $me=$this->getUser();
+        $ifiles=$em->getRepository('AppBundle:File')->findBy(['user'=>$me->getUsername()]);
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('1', 'Result');
+        $files=[];
+        foreach ($ifiles as $file) {
+            $query=$em->createNativeQuery(
+                    'SELECT 1 '
+                    . 'FROM TRASHBIN '
+                    . 'WHERE ENTITYID=? AND ENTITY=?',$rsm);
+            $query->setParameter(1,$file->getFileID())->setParameter(2,$file->getEntity());
+            $result=$query->getResult();
+            if(count($result)>0){
+                $files[]=$file;
+            }
+        }
+        return $this->render('AppBundle:Main:drive.html.twig', array(
+            'files'=>$files,
+            'uploadContext'=>''
         ));
     }
 
