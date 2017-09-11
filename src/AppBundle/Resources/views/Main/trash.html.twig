@@ -23,6 +23,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                    {% for item in files %}
                     <tr>
                         <td class="text-center" ondblclick="alert('hola');">
                             <i class=" fa fa-lg {{item.object.icon}}"></i>
@@ -44,27 +45,28 @@
                                     <strong>Borrado permanente el: </strong>
                                 </div>
                                 <div class="pull-right">
-                                    <small class="text-danger">{{dateHuman(item.liveUntil,"d/m/Y H:i")}}hrs</small>
+                                    <small class="text-danger">{{dateHuman(item.trash.liveUntil,"d/m/Y H:i")}}hrs</small>
                                 </div>
                             </div>
                             <div class="progress">
-                                <div class="progress-bar bg-warning progress-bar-striped progress-bar-animated" role="progressbar" style="width: {{item.livePercent}}"></div>
+                                <div class="progress-bar bg-warning progress-bar-striped progress-bar-animated" role="progressbar" style="width: {{item.trash.livePercent}}%"></div>
                             </div>
                         </td>
                         <td class="d-none d-md-table-cell">
-                            <div><a href="{{path('_profile',{'username':item.deletedBy.username})}}">{{item.deletedBy.username}}</a></div>
+                            <div><a href="{{path('_profile',{'username':item.trash.deletedBy.username})}}">{{item.trash.deletedBy.username}}</a></div>
                             <div class="small text-muted">
-                                <span class="text-warning">Borrado iniciado el: {{dateHuman(item.deletedOn,"d/m/Y H:i:s")}}</span>
+                                <span class="text-warning">Borrado iniciado el: {{dateHuman(item.trash.deletedOn,"d/m/Y H:i:s")}}</span>
                             </div>
                         </td>
                         <td class="text-center">
                             <strong>
                                 <div class="d-inline-table" file="{{item.object.encoded}}">
-                                    <button class="btn btn-dark" onclick="Recover(this);"><i class="icon-action-undo"></i></button>
+                                    <button class="btn btn-dark" onclick="Recover(this,true);"><i class="icon-action-undo"></i></button>
                                 </div>
                             </strong>
                         </td>
                     </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>

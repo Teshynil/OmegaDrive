@@ -25,69 +25,69 @@ class MainController extends Controller {
     }
 
     public function StartAction() {
-        $em=$this->getDoctrine()->getManager();
-        $me=$this->getUser();
-        $files=$me->getFavoriteFiles();
+        $em = $this->getDoctrine()->getManager();
+        $me = $this->getUser();
+        $files = $me->getFavoriteFiles();
         $rsm = new ResultSetMapping();
         $rsm->addScalarResult('1', 'Result');
         foreach ($files as $file) {
             $file->setMark(true);
-            $query=$em->createNativeQuery(
+            $query = $em->createNativeQuery(
                     'SELECT 1 '
                     . 'FROM TRASHBIN '
-                    . 'WHERE ENTITYID=? AND ENTITY=?',$rsm);
-            $query->setParameter(1,$file->getFileID())->setParameter(2,$file->getEntity());
-            $result=$query->getResult();
-            if(count($result)>0){
+                    . 'WHERE ENTITYID=? AND ENTITY=?', $rsm);
+            $query->setParameter(1, $file->getFileID())->setParameter(2, $file->getEntity());
+            $result = $query->getResult();
+            if (count($result) > 0) {
                 $file->setTrash(true);
             }
         }
-        return $this->render('AppBundle:Main:drive.html.twig', array(
-            'files'=>$files,
-            'uploadContext'=>''
+        return $this->render('AppBundle:Main:favs.html.twig', array(
+                    'files' => $files,
+                    'uploadContext' => ''
         ));
     }
 
     public function DriveAction(Request $request) {
-        $context=$request->request->get('uploadContext','');
-        $em=$this->getDoctrine()->getManager();
-        $me=$this->getUser();
-        if($context!==''){
-            $folder=$em->find('AppBundle:Folder', $context);
-            if($folder==NULL){
-                $folder=NULL;
-            }else{
-                $folder=$folder->getFolderID();
+        $context = $request->request->get('uploadContext', '');
+        $em = $this->getDoctrine()->getManager();
+        $me = $this->getUser();
+        if ($context !== '') {
+            $folder = $em->find('AppBundle:Folder', $context);
+            if ($folder == NULL) {
+                $folder = NULL;
+            } else {
+                $folder = $folder->getFolderID();
             }
-        }else{
-            $folder=NULL;
+        } else {
+            $folder = NULL;
         }
-        $files=$em->getRepository('AppBundle:File')->findBy(['owner'=>$me->getUsername(),'folder'=>$folder,'parent'=>NULL]);
+        $files = $em->getRepository('AppBundle:File')->findBy(['owner' => $me->getUsername(), 'folder' => $folder, 'parent' => NULL]);
         $rsm = new ResultSetMapping();
         $rsm->addScalarResult('1', 'Result');
         foreach ($files as $file) {
-            $query=$em->createNativeQuery(
+            $query = $em->createNativeQuery(
                     'SELECT 1 '
                     . 'FROM FAVORITEFILES '
-                    . 'WHERE USER=? AND FILE=?',$rsm);
-            $query->setParameter(1,$me->getUsername())->setParameter(2,$file->getFileID());
-            $result=$query->getResult();
-            if(count($result)>0){
+                    . 'WHERE USER=? AND FILE=?', $rsm);
+            $query->setParameter(1, $me->getUsername())->setParameter(2, $file->getFileID());
+            $result = $query->getResult();
+            if (count($result) > 0) {
                 $file->setMark(true);
             }
-            $query=$em->createNativeQuery(
+            $query = $em->createNativeQuery(
                     'SELECT 1 '
                     . 'FROM TRASHBIN '
-                    . 'WHERE ENTITYID=? AND ENTITY=?',$rsm);
-            $query->setParameter(1,$file->getFileID())->setParameter(2,$file->getEntity());
-            $result=$query->getResult();
-            if(count($result)>0){
+                    . 'WHERE ENTITYID=? AND ENTITY=?', $rsm);
+            $query->setParameter(1, $file->getFileID())->setParameter(2, $file->getEntity());
+            $result = $query->getResult();
+            if (count($result) > 0) {
                 $file->setTrash(true);
             }
         }
         return $this->render('AppBundle:Main:drive.html.twig', array(
-            'files'=>$files,
-            'uploadContext'=>$context
+                    'files' => $files,
+                    'uploadContext' => $context
         ));
     }
 
@@ -100,26 +100,46 @@ class MainController extends Controller {
 
     public function TrashAction() {
         $me = new User();
-        $em=$this->getDoctrine()->getManager();
-        $me=$this->getUser();
-        $ifiles=$em->getRepository('AppBundle:File')->findBy(['user'=>$me->getUsername()]);
+        $em = $this->getDoctrine()->getManager();
+        $me = $this->getUser();
         $rsm = new ResultSetMapping();
-        $rsm->addScalarResult('1', 'Result');
-        $files=[];
-        foreach ($ifiles as $file) {
-            $query=$em->createNativeQuery(
-                    'SELECT 1 '
-                    . 'FROM TRASHBIN '
-                    . 'WHERE ENTITYID=? AND ENTITY=?',$rsm);
-            $query->setParameter(1,$file->getFileID())->setParameter(2,$file->getEntity());
-            $result=$query->getResult();
-            if(count($result)>0){
-                $files[]=$file;
-            }
+        $rsm->addEntityResult('AppBundle:Trash', 't');
+        $rsm->addFieldResult('t', 'trashID', 'trashID');
+        $rsm->addFieldResult('t', 'entityID', 'entityID');
+        $rsm->addFieldResult('t', 'liveUntil', 'liveUntil');
+        $rsm->addFieldResult('t', 'deletedOn', 'deletedOn');
+        $rsm->addJoinedEntityResult('AppBundle:User', 'delBy', 't', 'deletedBy');
+        $rsm->addFieldResult('delBy', 'username', 'username');
+        $rsm->addEntityResult('AppBundle:File', 'f');
+        $rsm->addFieldResult('f', 'fileID', 'fileID');
+        $rsm->addFieldResult('f', 'name', 'name');
+        $rsm->addFieldResult('f', 'extension', 'extension');
+        $rsm->addFieldResult('f', 'creationDate', 'creationDate');
+        $rsm->addFieldResult('f', 'lastModifiedDate', 'lastModifiedDate');
+        $rsm->addFieldResult('f', 'lastAccessDate', 'lastAccessDate');
+        $rsm->addFieldResult('f', 'size', 'size');
+        $rsm->addJoinedEntityResult('AppBundle:Entity', 'e', 'f', 'entity');
+        $rsm->addFieldResult('e', 'entity', 'entity');
+        $sql =    'SELECT t.trashID, t.entityID, t.liveUntil, t.deletedOn, delBy.username, '
+                . 'f.fileID, f.name, f.extension, f.creationDate, f.lastModifiedDate, f.lastAccessDate, f.size, e.entity '
+                . 'FROM trashbin t '
+                . 'JOIN users delBy ON(t.deletedBy=delBy.username) '
+                . 'JOIN files f ON(t.entityID=f.fileID) '
+                . 'JOIN entities e ON(e.entity=f.entity) '
+                . 'WHERE t.entity=f.entity '
+                . 'AND f.owner=?';
+        $query = $em->createNativeQuery($sql, $rsm);
+        $query->setParameter(1, $me->getUsername());
+        $result = $query->getResult();
+        
+        for ($i = 0; $i < count($result); $i+=2) {
+            $file['trash']=$result[$i];
+            $file['object']=$result[$i+1];
+            $files[]=$file;
         }
-        return $this->render('AppBundle:Main:drive.html.twig', array(
-            'files'=>$files,
-            'uploadContext'=>''
+        return $this->render('AppBundle:Main:trash.html.twig', array(
+                    'files' => $files,
+                    'uploadContext' => ''
         ));
     }
 

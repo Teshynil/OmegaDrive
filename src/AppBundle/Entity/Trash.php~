@@ -94,4 +94,62 @@ class Trash
     {
         return $this->entity;
     }
+    /**
+     * @var \AppBundle\Entity\User
+     */
+    private $deletedBy;
+
+
+    /**
+     * Set deletedBy
+     *
+     * @param \AppBundle\Entity\User $deletedBy
+     *
+     * @return Trash
+     */
+    public function setDeletedBy(\AppBundle\Entity\User $deletedBy = null)
+    {
+        $this->deletedBy = $deletedBy;
+
+        return $this;
+    }
+
+    /**
+     * Get deletedBy
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getDeletedBy()
+    {
+        return $this->deletedBy;
+    }
+    /**
+     * @var \DateTime
+     */
+    private $deletedOn;
+
+
+    /**
+     * Set deletedOn
+     *
+     * @param \DateTime $deletedOn
+     *
+     * @return Trash
+     */
+    public function setDeletedOn($deletedOn)
+    {
+        $this->deletedOn = $deletedOn;
+    
+        return $this;
+    }
+
+    /**
+     * Get deletedOn
+     *
+     * @return \DateTime
+     */
+    public function getDeletedOn()
+    {
+        return $this->deletedOn;
+    }
 }

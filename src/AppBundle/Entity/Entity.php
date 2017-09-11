@@ -10,7 +10,7 @@ class Entity
     /**
      * @var string
      */
-    private $Entity;
+    private $entity;
     
     /**
      * Constructor
@@ -29,7 +29,7 @@ class Entity
      */
     public function setEntity($entity)
     {
-        $this->Entity = $entity;
+        $this->entity = $entity;
     
         return $this;
     }
@@ -41,6 +41,6 @@ class Entity
      */
     public function getEntity()
     {
-        return $this->Entity;
+        return $this->entity;
     }
 }

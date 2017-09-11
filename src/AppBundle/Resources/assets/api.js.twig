@@ -43,7 +43,7 @@ function Delete(e){
         });
 }
 
-function Recover(e){
+function Recover(e,removeRow=false){
     var data=$(e).parent().attr('file');
     $.ajax({
             type: 'GET',
@@ -57,6 +57,9 @@ function Recover(e){
                     var tr=$(e).parents('tr');
                     tr.removeClass('mark-for-deletion');
                     $(e).attr('onclick','Delete(this)');
+                    if(removeRow===true){
+                        tr.remove();
+                    }
                 }
             }
         });

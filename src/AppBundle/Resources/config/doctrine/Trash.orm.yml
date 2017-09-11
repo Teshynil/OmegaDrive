@@ -14,13 +14,16 @@ AppBundle\Entity\Trash:
                 name: DeletedBy
                 referencedColumnName: Username
     id:
-        entityID:
+        trashID:
             type: guid
             id: true
-            column: EntityID
-        entity:
-            associationKey: true
+            column: TrashID
+            generator:
+                strategy: UUID
     fields:
+        entityID:
+            type: guid
+            column: EntityID
         liveUntil:
             type: datetime
             column: LiveUntil

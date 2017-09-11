@@ -107,7 +107,9 @@ class ApiController extends Controller {
             $trash = new Trash();
             $trash->setEntity($item->getEntity())
                     ->setEntityID($item->getFileID())
-                    ->setLiveUntil((new DateTime("now"))->add(new DateInterval("P1M")));
+                    ->setLiveUntil((new DateTime("now"))->add(new DateInterval("P1M")))
+                    ->setDeletedOn(new DateTime("now"))
+                    ->setDeletedBy($this->getUser());
             $em->persist($trash);
             $em->flush();
             $response['ok']=TRUE;

@@ -3,7 +3,7 @@ AppBundle\Entity\Entity:
     table: Entities
     repositoryClass: AppBundle\Repository\EntityRepository
     id:
-        Entity:
+        entity:
             type: string
             length: '20'
             column: Entity
